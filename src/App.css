@@ -1,0 +1,318 @@
+/* App.css */
+.month-view {
+  text-align: center;
+}
+
+.week {
+  margin-bottom: 10px;
+}
+
+.days {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day {
+  width: calc(100% / 7); /* Distribute days evenly across the container */
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+}
+/* App.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+}
+
+.user-input {
+  margin-top: 20px;
+}
+
+.user-input input[type="text"] {
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.user-input button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.user-calendars {
+  flex-grow: 1;
+}
+
+.user-calendar {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+  text-align: left;
+}
+
+.user-calendar h2 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.displayed-free-time-slots {
+  flex-grow: 1;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-left: 20px;
+  padding: 10px;
+  text-align: left;
+}
+
+.displayed-free-time-slots h2 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+.month-view {
+  text-align: center;
+}
+
+.week {
+  margin-bottom: 10px;
+}
+
+.days {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day {
+  width: calc(100% / 7); /* Distribute days evenly across the container */
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+}
+
+/* Existing styles for the rest of the app */
+/* ... */
+
+/* Additional styles for the Suitable Categories section */
+
+.suitable-categories {
+  flex-grow: 1;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-left: 20px;
+  padding: 10px;
+  text-align: left;
+}
+
+.suitable-categories h2 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.category {
+  margin-bottom: 20px;
+}
+
+.category h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+.date {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.available-for {
+  color: #007bff;
+}
+/* ... Existing styles ... */
+
+/* Additional styles for the Displayed Free Time Slots section */
+
+.displayed-free-time-slots {
+  flex-grow: 1;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-left: 20px;
+  padding: 10px;
+  text-align: left;
+}
+
+.displayed-free-time-slots h2 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+.date {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.available-for {
+  color: #007bff;
+}
+
+/* Additional styles for the Suitable Categories section */
+
+.suitable-categories {
+  flex-grow: 1;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-left: 20px;
+  padding: 10px;
+  text-align: left;
+}
+
+.suitable-categories h2 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.category {
+  margin-bottom: 20px;
+}
+
+.category h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+.date {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.available-for {
+  color: #007bff;
+}
+
+/* Additional styles for the All Free Time Slots section */
+
+.all-available-time-slots {
+  flex-grow: 1;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-left: 20px;
+  padding: 10px;
+  text-align: left;
+}
+
+.all-available-time-slots h2 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+.date {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.available-for {
+  color: #007bff;
+}
+
+
