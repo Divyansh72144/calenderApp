@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 import './App.css'
-import Calendar from './components/CalendarCreation'
+import Calendar from './components/Calendar'
 
 function App () {
   const [userName, setUserName] = useState('')
@@ -80,15 +80,11 @@ function App () {
   }
 
   const displayNextWeekFreeTimeSlots = () => {
-    // Calculate the date range for next week
     const today = moment()
     const startOfNextWeek = today.clone().add(1, 'week').startOf('week')
     const endOfNextWeek = today.clone().add(1, 'week').endOf('week')
 
-    // Create an object to store next week's slots
     const nextWeekSlots = {}
-
-    // Count the number of users available for each slot
     const slotAvailability = {}
 
     Object.keys(allFreeTimeSlots).forEach((userName) => {
@@ -96,7 +92,6 @@ function App () {
       Object.keys(userFreeTimeSlots).forEach((slot) => {
         const slotDate = moment(slot)
 
-        // Check if the slot is within the date range of next week
         if (slotDate.isBetween(startOfNextWeek, endOfNextWeek)) {
           if (!nextWeekSlots[slot]) {
             nextWeekSlots[slot] = []
@@ -104,7 +99,6 @@ function App () {
           nextWeekSlots[slot].push(userName)
         }
 
-        // Count availability for each slot
         if (!slotAvailability[slot]) {
           slotAvailability[slot] = []
         }
@@ -112,7 +106,6 @@ function App () {
       })
     })
 
-    // Create an object to store multi-user slots for next week
     const nextWeekMultiUserSlots = {}
     Object.keys(nextWeekSlots).forEach((slot) => {
       if (slotAvailability[slot].length >= 2) {
@@ -120,7 +113,6 @@ function App () {
       }
     })
 
-    // Set the state to display next week's multi-user slots
     setDisplayedFreeTimeSlots({
       'This Week': displayedFreeTimeSlots['This Week'],
       'Next Week': nextWeekMultiUserSlots
@@ -128,7 +120,6 @@ function App () {
   }
 
   const displayAllAvailableTimeSlots = () => {
-    // Create an object to store all available slots
     const allAvailableSlots = {}
 
     Object.keys(allFreeTimeSlots).forEach((userName) => {
@@ -155,10 +146,6 @@ function App () {
 
   const categorizeDisplayedDates = () => {
     const today = moment()
-    const startOfThisWeek = today.clone().startOf('week')
-    const endOfThisWeek = today.clone().endOf('week')
-    const startOfNextWeek = endOfThisWeek.clone().add(1, 'day')
-    const endOfNextWeek = startOfNextWeek.clone().endOf('week')
 
     const todayDates = {}
     const tomorrowDates = {}
