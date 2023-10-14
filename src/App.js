@@ -1,187 +1,187 @@
-import React, { useState } from "react";
-import moment from "moment";
-import "./App.css";
-import Calendar from "./components/calender_creation";
+import React, { useState } from 'react'
+import moment from 'moment'
+import './App.css'
+import Calendar from './components/CalendarCreation'
 
-function App() {
-  const [userName, setUserName] = useState("");
-  const [users, setUsers] = useState([]);
-  const [allFreeTimeSlots, setAllFreeTimeSlots] = useState({});
-  const [displayedFreeTimeSlots, setDisplayedFreeTimeSlots] = useState({});
-  const [suitableCategories, setSuitableCategories] = useState({});
-  const [allAvailableTimeSlots, setAllAvailableTimeSlots] = useState({});
+function App () {
+  const [userName, setUserName] = useState('')
+  const [users, setUsers] = useState([])
+  const [allFreeTimeSlots, setAllFreeTimeSlots] = useState({})
+  const [displayedFreeTimeSlots, setDisplayedFreeTimeSlots] = useState({})
+  const [suitableCategories, setSuitableCategories] = useState({})
+  const [allAvailableTimeSlots, setAllAvailableTimeSlots] = useState({})
 
   const createUserCalendar = () => {
-    if (userName.trim() !== "") {
+    if (userName.trim() !== '') {
       const newUser = {
         name: userName,
         currentDate: moment(),
-        calendar: {},
-      };
+        calendar: {}
+      }
 
-      setUsers([...users, newUser]);
-      setUserName("");
+      setUsers([...users, newUser])
+      setUserName('')
     }
-  };
+  }
 
   const displayDuplicateFreeTimeSlots = () => {
-    const thisWeekSlots = {};
-    const nextWeekSlots = {};
+    const thisWeekSlots = {}
+    const nextWeekSlots = {}
 
     // Count the number of users available for each slot
-    const slotAvailability = {};
+    const slotAvailability = {}
 
     Object.keys(allFreeTimeSlots).forEach((userName) => {
-      const userFreeTimeSlots = allFreeTimeSlots[userName];
+      const userFreeTimeSlots = allFreeTimeSlots[userName]
       Object.keys(userFreeTimeSlots).forEach((slot) => {
-        const slotDate = moment(slot);
-        const today = moment();
-        const endOfThisWeek = today.clone().endOf("week");
-        const startOfNextWeek = endOfThisWeek.clone().add(1, "day");
+        const slotDate = moment(slot)
+        const today = moment()
+        const endOfThisWeek = today.clone().endOf('week')
+        const startOfNextWeek = endOfThisWeek.clone().add(1, 'day')
 
         if (slotDate.isBefore(endOfThisWeek)) {
           if (!thisWeekSlots[slot]) {
-            thisWeekSlots[slot] = [];
+            thisWeekSlots[slot] = []
           }
-          thisWeekSlots[slot].push(userName);
+          thisWeekSlots[slot].push(userName)
         } else if (slotDate.isBefore(startOfNextWeek)) {
           if (!nextWeekSlots[slot]) {
-            nextWeekSlots[slot] = [];
+            nextWeekSlots[slot] = []
           }
-          nextWeekSlots[slot].push(userName);
+          nextWeekSlots[slot].push(userName)
         }
 
         // Count availability for each slot
         if (!slotAvailability[slot]) {
-          slotAvailability[slot] = [];
+          slotAvailability[slot] = []
         }
-        slotAvailability[slot].push(userName);
-      });
-    });
+        slotAvailability[slot].push(userName)
+      })
+    })
 
-    const thisWeekMultiUserSlots = {};
+    const thisWeekMultiUserSlots = {}
     Object.keys(thisWeekSlots).forEach((slot) => {
       if (slotAvailability[slot].length >= 2) {
-        thisWeekMultiUserSlots[slot] = thisWeekSlots[slot];
+        thisWeekMultiUserSlots[slot] = thisWeekSlots[slot]
       }
-    });
+    })
 
-    const nextWeekMultiUserSlots = {};
+    const nextWeekMultiUserSlots = {}
     Object.keys(nextWeekSlots).forEach((slot) => {
       if (slotAvailability[slot].length >= 2) {
-        nextWeekMultiUserSlots[slot] = nextWeekSlots[slot];
+        nextWeekMultiUserSlots[slot] = nextWeekSlots[slot]
       }
-    });
+    })
 
     setDisplayedFreeTimeSlots({
-      "This Week": thisWeekMultiUserSlots,
-      "Next Week": nextWeekMultiUserSlots,
-    });
-  };
+      'This Week': thisWeekMultiUserSlots,
+      'Next Week': nextWeekMultiUserSlots
+    })
+  }
 
   const displayNextWeekFreeTimeSlots = () => {
     // Calculate the date range for next week
-    const today = moment();
-    const startOfNextWeek = today.clone().add(1, "week").startOf("week");
-    const endOfNextWeek = today.clone().add(1, "week").endOf("week");
+    const today = moment()
+    const startOfNextWeek = today.clone().add(1, 'week').startOf('week')
+    const endOfNextWeek = today.clone().add(1, 'week').endOf('week')
 
     // Create an object to store next week's slots
-    const nextWeekSlots = {};
+    const nextWeekSlots = {}
 
     // Count the number of users available for each slot
-    const slotAvailability = {};
+    const slotAvailability = {}
 
     Object.keys(allFreeTimeSlots).forEach((userName) => {
-      const userFreeTimeSlots = allFreeTimeSlots[userName];
+      const userFreeTimeSlots = allFreeTimeSlots[userName]
       Object.keys(userFreeTimeSlots).forEach((slot) => {
-        const slotDate = moment(slot);
+        const slotDate = moment(slot)
 
         // Check if the slot is within the date range of next week
         if (slotDate.isBetween(startOfNextWeek, endOfNextWeek)) {
           if (!nextWeekSlots[slot]) {
-            nextWeekSlots[slot] = [];
+            nextWeekSlots[slot] = []
           }
-          nextWeekSlots[slot].push(userName);
+          nextWeekSlots[slot].push(userName)
         }
 
         // Count availability for each slot
         if (!slotAvailability[slot]) {
-          slotAvailability[slot] = [];
+          slotAvailability[slot] = []
         }
-        slotAvailability[slot].push(userName);
-      });
-    });
+        slotAvailability[slot].push(userName)
+      })
+    })
 
     // Create an object to store multi-user slots for next week
-    const nextWeekMultiUserSlots = {};
+    const nextWeekMultiUserSlots = {}
     Object.keys(nextWeekSlots).forEach((slot) => {
       if (slotAvailability[slot].length >= 2) {
-        nextWeekMultiUserSlots[slot] = nextWeekSlots[slot];
+        nextWeekMultiUserSlots[slot] = nextWeekSlots[slot]
       }
-    });
+    })
 
     // Set the state to display next week's multi-user slots
     setDisplayedFreeTimeSlots({
-      "This Week": displayedFreeTimeSlots["This Week"],
-      "Next Week": nextWeekMultiUserSlots,
-    });
-  };
+      'This Week': displayedFreeTimeSlots['This Week'],
+      'Next Week': nextWeekMultiUserSlots
+    })
+  }
 
   const displayAllAvailableTimeSlots = () => {
     // Create an object to store all available slots
-    const allAvailableSlots = {};
+    const allAvailableSlots = {}
 
     Object.keys(allFreeTimeSlots).forEach((userName) => {
-      const userFreeTimeSlots = allFreeTimeSlots[userName];
+      const userFreeTimeSlots = allFreeTimeSlots[userName]
       Object.keys(userFreeTimeSlots).forEach((slot) => {
         if (!allAvailableSlots[slot]) {
-          allAvailableSlots[slot] = [];
+          allAvailableSlots[slot] = []
         }
-        allAvailableSlots[slot].push(userName);
-      });
-    });
+        allAvailableSlots[slot].push(userName)
+      })
+    })
 
     // Filter slots with availability for at least two users
-    const filteredAvailableSlots = {};
+    const filteredAvailableSlots = {}
     Object.keys(allAvailableSlots).forEach((slot) => {
       if (allAvailableSlots[slot].length >= 2) {
-        filteredAvailableSlots[slot] = allAvailableSlots[slot];
+        filteredAvailableSlots[slot] = allAvailableSlots[slot]
       }
-    });
+    })
 
     // Set the state to display all available slots for both parties or more
-    setAllAvailableTimeSlots(filteredAvailableSlots);
-  };
+    setAllAvailableTimeSlots(filteredAvailableSlots)
+  }
 
   const categorizeDisplayedDates = () => {
-    const today = moment();
-    const startOfThisWeek = today.clone().startOf("week");
-    const endOfThisWeek = today.clone().endOf("week");
-    const startOfNextWeek = endOfThisWeek.clone().add(1, "day");
-    const endOfNextWeek = startOfNextWeek.clone().endOf("week");
+    const today = moment()
+    const startOfThisWeek = today.clone().startOf('week')
+    const endOfThisWeek = today.clone().endOf('week')
+    const startOfNextWeek = endOfThisWeek.clone().add(1, 'day')
+    const endOfNextWeek = startOfNextWeek.clone().endOf('week')
 
-    const todayDates = {};
-    const tomorrowDates = {};
+    const todayDates = {}
+    const tomorrowDates = {}
 
     Object.keys(displayedFreeTimeSlots).forEach((week) => {
       Object.keys(displayedFreeTimeSlots[week]).forEach((slot) => {
-        const slotDate = moment(slot);
+        const slotDate = moment(slot)
 
-        if (slotDate.isSame(today, "day")) {
-          todayDates[slot] = displayedFreeTimeSlots[week][slot];
-        } else if (slotDate.isSame(today.clone().add(1, "day"), "day")) {
-          tomorrowDates[slot] = displayedFreeTimeSlots[week][slot];
+        if (slotDate.isSame(today, 'day')) {
+          todayDates[slot] = displayedFreeTimeSlots[week][slot]
+        } else if (slotDate.isSame(today.clone().add(1, 'day'), 'day')) {
+          tomorrowDates[slot] = displayedFreeTimeSlots[week][slot]
         }
-      });
-    });
+      })
+    })
 
     const categorizedDates = {
       Today: todayDates,
-      Tomorrow: tomorrowDates,
-    };
+      Tomorrow: tomorrowDates
+    }
 
-    setSuitableCategories(categorizedDates);
-  };
+    setSuitableCategories(categorizedDates)
+  }
 
   return (
     <div className="App">
@@ -196,10 +196,10 @@ function App() {
           />
           <button onClick={createUserCalendar}>Add User</button>
           <button onClick={displayDuplicateFreeTimeSlots}>
-            Display This Week's Free Time Slots
+            Display This Week&apos;s Free Time Slots
           </button>
           <button onClick={displayNextWeekFreeTimeSlots}>
-            Display Next Week's Free Time Slots
+            Display Next Week&apos;s Free Time Slots
           </button>
           <button onClick={displayAllAvailableTimeSlots}>
             Display All Available Time Slots
@@ -213,7 +213,7 @@ function App() {
         <div className="user-calendars">
           {users.map((user) => (
             <div key={user.name} className="user-calendar">
-              <h2>{user.name}'s Calendar</h2>
+              <h2>{user.name}&apos;s Calendar</h2>
               <Calendar
                 user={user}
                 allFreeTimeSlots={allFreeTimeSlots}
@@ -234,8 +234,8 @@ function App() {
                       <li key={date}>
                         <span className="date">Date: {date}</span>
                         <span className="available-for">
-                          Available for:{" "}
-                          {suitableCategories[category][date].join(", ")}
+                          Available for:
+                          {suitableCategories[category][date].join(', ')}
                         </span>
                       </li>
                     ))}
@@ -255,8 +255,8 @@ function App() {
                   <ul>
                     {Object.keys(displayedFreeTimeSlots[week]).map((slot) => (
                       <li key={slot}>
-                        Date {slot} - Available for:{" "}
-                        {displayedFreeTimeSlots[week][slot].join(", ")}
+                        Date {slot} - Available for:
+                        {displayedFreeTimeSlots[week][slot].join(', ')}
                       </li>
                     ))}
                   </ul>
@@ -271,8 +271,8 @@ function App() {
             <ul>
               {Object.keys(allAvailableTimeSlots).map((slot) => (
                 <li key={slot}>
-                  Date {slot} - Available for:{" "}
-                  {allAvailableTimeSlots[slot].join(", ")}
+                  Date {slot} - Available for:
+                  {allAvailableTimeSlots[slot].join(', ')}
                 </li>
               ))}
             </ul>
@@ -280,7 +280,7 @@ function App() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
